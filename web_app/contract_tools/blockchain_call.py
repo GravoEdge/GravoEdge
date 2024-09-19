@@ -1,10 +1,11 @@
 import os
 import time
-from typing import List, Any
+from typing import Any, List
+
+import starknet_py.cairo.felt
 import starknet_py.hash.selector
 import starknet_py.net.client_models
 import starknet_py.net.networks
-import starknet_py.cairo.felt
 from starknet_py.net.full_node_client import FullNodeClient
 
 
@@ -12,6 +13,7 @@ class StarknetClient:
     """
     A client to interact with the Starknet blockchain.
     """
+
     SLEEP_TIME = 10
 
     def __init__(self):
@@ -46,7 +48,7 @@ class StarknetClient:
         call = starknet_py.net.client_models.Call(
             to_addr=addr,
             selector=starknet_py.hash.selector.get_selector_from_name(selector),
-            calldata=calldata
+            calldata=calldata,
         )
         try:
             res = await self.client.call_contract(call)
@@ -55,7 +57,9 @@ class StarknetClient:
             res = await self.client.call_contract(call)
         return res
 
-    async def get_balance(self, token_addr: str, holder_addr: str) -> int:
+    async def get_balance(
+        self, token_addr: str, holder_addr: str, decimals: int = None
+    ) -> int:
         """
         Fetches the balance of a holder for a specific token.
 
@@ -69,4 +73,6 @@ class StarknetClient:
         res = await self._func_call(
             token_address_int, "balanceOf", [holder_address_int]
         )
-        return res[0]
+        if decimals:
+            return round(res[0] / 10**decimals, 6)
+        return round(res[0], 6)
