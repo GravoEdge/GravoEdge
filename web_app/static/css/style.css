@@ -47,13 +47,21 @@ footer {
     color: white;
 }
 
+/* Style for the social media icons */
 footer a {
-    color: #4cc9f0;
+    color: #FFFFFF;
+    text-decoration: none;
+    margin-right: 15px;
 }
 
 footer a:hover {
-    color: #f72585;
+    color: #1DA1F2; /* Change color on hover */
 }
+
+footer i {
+    margin-right: 8px; /* Add space between the icon and the text */
+}
+
 
 /* Form styles */
 .form-label {
