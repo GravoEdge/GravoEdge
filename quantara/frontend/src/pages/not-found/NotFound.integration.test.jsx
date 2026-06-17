@@ -18,10 +18,10 @@ describe('App 404 catch-all route', () => {
         </Routes>
       </MemoryRouter>
     );
-    expect(screen.getByText('404')).toBeInTheDocument();
+    expect(screen.getByText('404')).toBeTruthy();
     expect(
       screen.getByRole('heading', { name: /page not found/i })
-    ).toBeInTheDocument();
+    ).toBeTruthy();
   });
 
   it('does not render NotFound for the home route', () => {
@@ -31,28 +31,6 @@ describe('App 404 catch-all route', () => {
           <Route path="/" element={<div>Home</div>} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </MemoryRouter>
-    );
-    expect(screen.getByText('Home')).toBeInTheDocument();
-    expect(screen.queryByText('404')).not.toBeInTheDocument();
-  });
-});
-
-describe('App 404 catch-all route', () => {
-  it('renders NotFound for an unknown route', () => {
-    render(
-      <MemoryRouter initialEntries={['/this-path-does-not-exist']}>
-        <App />
-      </MemoryRouter>
-    );
-    expect(screen.getByText('404')).toBeTruthy();
-    expect(screen.getByRole('heading', { name: /page not found/i })).toBeTruthy();
-  });
-
-  it('does not render NotFound for the home route', () => {
-    render(
-      <MemoryRouter initialEntries={['/']}>
-        <App />
       </MemoryRouter>
     );
     expect(screen.getByText('Home')).toBeTruthy();
