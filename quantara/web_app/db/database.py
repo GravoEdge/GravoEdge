@@ -17,11 +17,8 @@ engine = None
 SessionLocal = None
 Base = declarative_base()
 
-def init_db() -> None:
-    """Initialize database connection and session factory."""
-    global engine, SessionLocal
-    if engine is not None:
-        return
+def get_database_url() -> str:
+    """Construct and return the database URL from environment variables."""
     load_dotenv(override=False)
 
     DB_USER = os.environ.get("DB_USER", "")
@@ -30,11 +27,17 @@ def init_db() -> None:
     DB_PORT = os.environ.get("DB_PORT", "5432")
     DB_NAME = os.environ.get("DB_NAME", "")
 
-    SQLALCHEMY_DATABASE_URL = (
+    return (
         f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_SERVER}:{DB_PORT}/{DB_NAME}"
     )
 
-    engine = create_engine(SQLALCHEMY_DATABASE_URL)
+def init_db() -> None:
+    """Initialize database connection and session factory."""
+    global engine, SessionLocal
+    if engine is not None:
+        return
+
+    engine = create_engine(get_database_url())
     SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 def get_database() -> Generator[Session, None, None]:
