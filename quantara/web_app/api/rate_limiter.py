@@ -42,4 +42,5 @@ limiter = Limiter(
     key_func=get_remote_address,
     storage_uri=os.getenv("REDIS_URL", "redis://localhost:6379"),
     headers_enabled=True,
+    in_memory_fallback_enabled=True,
 )

@@ -15,6 +15,15 @@ from web_app.db.database import get_database
 from web_app.db.models import ExtraDeposit
 
 
+@pytest.fixture(autouse=True)
+def disable_rate_limiting():
+    """Disable rate limiting in all tests to avoid Redis dependency."""
+    from web_app.api.rate_limiter import limiter
+    limiter.enabled = False
+    yield
+    limiter.enabled = True
+
+
 def dict_to_object(data: dict, **kwargs) -> object:
     """
     Convert a dictionary to an attribute object
