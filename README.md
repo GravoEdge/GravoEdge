@@ -1,16 +1,16 @@
-# Quantara
+# GravoEdge
 
 > **A Stellar-native leveraged DeFi protocol enabling automated capital looping strategies to maximize yield efficiency.**
 
-[![CI Workflow](https://github.com/quantara-protocol/quantara/actions/workflows/ci.yml/badge.svg)](https://github.com/quantara-protocol/quantara/actions/workflows/ci.yml)
+[![CI Workflow](https://github.com/gravoedge-protocol/gravoedge/actions/workflows/ci.yml/badge.svg)](https://github.com/gravoedge-protocol/gravoedge/actions/workflows/ci.yml)
 
 ---
 
 ## Overview
 
-**Quantara** is a professional-grade DeFi protocol built for the **Stellar ecosystem** that allows users to amplify their asset positions through automated leverage looping. By depositing collateral into lending protocols, borrowing stablecoins, swapping through AMMs, and re-depositing, Quantara enables up to **~5x leverage** on supported assets.
+**GravoEdge** is a professional-grade DeFi protocol built for the **Stellar ecosystem** that allows users to amplify their asset positions through automated leverage looping. By depositing collateral into lending protocols, borrowing stablecoins, swapping through AMMs, and re-depositing, GravoEdge enables up to **~5x leverage** on supported assets.
 
-Built for the **Stellar ecosystem**, Quantara uses clean abstraction layers and modular architecture to maximize capital efficiency.
+Built for the **Stellar ecosystem**, GravoEdge uses clean abstraction layers and modular architecture to maximize capital efficiency.
 
 ### Core Concepts
 
@@ -25,7 +25,7 @@ Built for the **Stellar ecosystem**, Quantara uses clean abstraction layers and 
 ## Architecture
 
 ```
-quantara/
+gravoedge/
 ├── soroban/                  # Soroban smart contract layer (Stellar)
 │   ├── adapters/             # Blockchain abstraction interfaces
 │   │   ├── LendingAdapter    → Lending protocol abstraction
@@ -45,7 +45,7 @@ quantara/
 
 ### Smart Contract Abstraction
 
-Quantara uses an **adapter pattern** to abstract blockchain interactions:
+GravoEdge uses an **adapter pattern** to abstract blockchain interactions:
 
 | Adapter | Purpose | Description |
 |---------|---------|-------------|
@@ -55,7 +55,7 @@ Quantara uses an **adapter pattern** to abstract blockchain interactions:
 
 ---
 
-## Why Quantara?
+## Why GravoEdge?
 
 ### Problem
 
@@ -63,7 +63,7 @@ DeFi users lack access to **capital-efficient leverage tools** in the Stellar ec
 
 ### Solution
 
-Quantara provides an **automated leverage engine** that:
+GravoEdge provides an **automated leverage engine** that:
 
 - **Maximizes capital efficiency** through intelligent looping
 - **Reduces complexity** with one-click leverage positions
@@ -85,7 +85,7 @@ Quantara provides an **automated leverage engine** that:
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd quantara
+cd gravoedge
 
 # Configure environment variables
 cp .env.example .env
@@ -122,17 +122,17 @@ make back
 
 ```bash
 # Python backend tests
-cd quantara && poetry run pytest web_app/tests
+cd gravoedge && poetry run pytest web_app/tests
 
 # Frontend tests
-cd quantara/frontend && yarn test
+cd gravoedge/frontend && yarn test
 ```
 
 ### Database Migrations
 
 ```bash
 # Start services
-docker compose -f devops/docker-compose.quantara.dev.yaml up --build
+docker compose -f devops/docker-compose.gravoedge.dev.yaml up --build
 
 # Run migrations
 docker exec backend_dev alembic -c web_app/alembic.ini upgrade head
@@ -144,7 +144,7 @@ docker exec backend_dev alembic -c web_app/alembic.ini revision --autogenerate -
 ### Adding Test Data
 
 ```bash
-docker compose -f devops/docker-compose.quantara.dev.yaml up --build
+docker compose -f devops/docker-compose.gravoedge.dev.yaml up --build
 
 # Seed the database
 docker exec -ti backend_dev python -m web_app.db.seed_data
